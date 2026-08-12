@@ -1,0 +1,40 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: observation-viewer
+  namespace: tenant-red
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: observation-reader
+subjects:
+  - kind: ServiceAccount
+    name: viewer
+    namespace: tenant-red
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: observation-viewer
+  namespace: tenant-blue
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: observation-reader
+subjects:
+  - kind: ServiceAccount
+    name: viewer
+    namespace: tenant-blue
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: platform-observation-reader
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: observation-reader
+subjects:
+  - kind: ServiceAccount
+    name: platform-observer
+    namespace: obs-system

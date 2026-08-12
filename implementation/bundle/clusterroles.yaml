@@ -1,0 +1,65 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: observation-core-reader
+  labels:
+    observability.example/aggregate-to-reader: enabled
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: observation-log-reader
+  labels:
+    observability.example/aggregate-to-reader: enabled
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - pods/log
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: observation-metrics-reader
+  labels:
+    observability.example/aggregate-to-reader: enabled
+rules:
+  - apiGroups:
+      - metrics.k8s.io
+    resources:
+      - pods
+      - nodes
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: observation-health-reader
+  labels:
+    observability.example/aggregate-to-reader: enabled
+rules:
+  - nonResourceURLs:
+      - /healthz
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: observation-reader
+aggregationRule:
+  clusterRoleSelectors:
+    - matchLabels:
+        observability.example/aggregate-to-reader: enabled

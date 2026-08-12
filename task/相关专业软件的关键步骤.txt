@@ -1,0 +1,6 @@
+1.使用kubectl查看现行YAML中的Namespace、ServiceAccount、ClusterRole和绑定对象。
+2.按access-needs.csv整理只读ClusterRole片段，并给片段添加review-rules.json规定的聚合标签。
+3.创建只含aggregationRule的聚合ClusterRole，分别建立租户RoleBinding与平台ClusterRoleBinding。
+4.编写kustomization.yaml，使用kubectl kustomize生成一份完整渲染清单。
+5.从渲染清单导出对象清单、规则明细和绑定范围，检查通配符、敏感资源及禁止动词。
+6.核对现行问题是否都有处置记录，在交接说明中写清现场应用与权限确认责任。

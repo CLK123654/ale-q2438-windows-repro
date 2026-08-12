@@ -1,0 +1,13 @@
+支持的操作系统：Windows11。
+
+主软件：Kubernetes，使用Windows11原生kubectl.exe及其内置Kustomize功能处理本地清单。
+
+辅助工具：PowerShell7、Python3.12、UTF-8文本编辑器、CSV查看器和YAML查看器。辅助脚本用于整理输入及导出静态评审结果。
+
+运行权限：输入目录只读，交付目录可写。任务不读取kubeconfig，不连接Kubernetes API Server，也不执行apply。
+
+网络条件：软件安装阶段可以联网，正式处理阶段不访问外部服务。
+
+软件许可：kubectl和Kubernetes按ApacheLicense2.0使用，本题不分发软件二进制文件。
+
+主要风险：把ClusterRole引用误当成集群范围、聚合标签写错、租户账号进入ClusterRoleBinding、清单中残留通配符或写入权限，以及把静态结果当作现场授权结论。
