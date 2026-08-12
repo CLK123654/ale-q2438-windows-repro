@@ -1,4 +1,7 @@
-检查项：交付目录与构建入口
+总分100分
+
+1. 交付目录与构建入口
+分值：10分
 优先级：Gate项
 所属层级：L1任务指令遵循层
 标准答案：交付bundle目录、rendered/rbac-bundle.yaml、tools/build_delivery.py、results目录和RELEASE-NOTES.md，kubectl kustomize能够从bundle生成随附渲染结果。
@@ -9,7 +12,8 @@
 阈值：固定路径缺一项或对象集合出现差异即失败。
 可观察证据：交付目录、kubectl退出码、kustomization.yaml、rbac-bundle.yaml和对象清单。
 
-检查项：输入使用与现行问题定位
+2. 输入使用与现行问题定位
+分值：10分
 优先级：Gate项
 所属层级：L3输入数据导入与完整性层
 标准答案：读取现行RBAC、访问需要和评审规则；问题处置表记录现行通配符ClusterRole及租户账号共用ClusterRoleBinding两项风险，并标记已从新清单移除。
@@ -20,7 +24,8 @@
 阈值：输入追溯或风险处置任一缺失即失败。
 可观察证据：只读输入、risk-disposition.csv、rendered/rbac-bundle.yaml和RELEASE-NOTES.md。
 
-检查项：聚合角色与只读规则
+3. 聚合角色与只读规则
+分值：18分
 优先级：Gate项
 所属层级：L7产物结构与专业对象层
 标准答案：聚合角色observation-reader只有aggregationRule，不写rules；规则片段使用review-rules.json指定的标签，规则明细能够覆盖access-needs.csv中的资源或非资源入口。
@@ -31,7 +36,8 @@
 阈值：出现一条缺失或额外规则即失败。
 可观察证据：clusterroles.yaml、rule-inventory.csv、access-needs.csv和aggregation-review.json。
 
-检查项：禁止权限扫描
+4. 禁止权限扫描
+分值：17分
 优先级：Gate项
 所属层级：L6领域计算与专业规则层
 标准答案：新渲染清单不含通配符、secrets及review-rules.json列出的写入或提升动词。
@@ -42,7 +48,8 @@
 阈值：禁止项数量必须为0，发现一项即失败。
 可观察证据：渲染清单、rule-inventory.csv和aggregation-review.json。
 
-检查项：租户绑定范围
+5. 租户绑定范围
+分值：15分
 优先级：Gate项
 所属层级：L7产物结构与专业对象层
 标准答案：tenant-red与tenant-blue中的viewer分别由本命名空间RoleBinding引用observation-reader，租户主体不出现在ClusterRoleBinding。
@@ -53,7 +60,8 @@
 阈值：每个租户恰有一条合格记录，数量或内容不符即失败。
 可观察证据：bindings.yaml、binding-scope.csv和对象清单。
 
-检查项：平台账号绑定范围
+6. 平台账号绑定范围
+分值：14分
 优先级：高权重项
 所属层级：L7产物结构与专业对象层
 标准答案：obs-system中的platform-observer由单独ClusterRoleBinding引用observation-reader，绑定范围记录为CLUSTER。
@@ -64,7 +72,8 @@
 阈值：记录数量或字段出现一处差异即失败。
 可观察证据：bindings.yaml、binding-scope.csv和对象清单。
 
-检查项：静态结论与现场职责
+7. 静态结论与现场职责
+分值：9分
 优先级：高权重项
 所属层级：L9跨产物一致性与可追溯层
 标准答案：发布说明明确当前结论只来自本地渲染清单；现场管理员负责应用清单、等待聚合控制器完成并核查实际授权。
@@ -75,7 +84,8 @@
 阈值：三项边界必须全部出现，缺一项即失败。
 可观察证据：release-summary.json、RELEASE-NOTES.md和aggregation-review.json。
 
-检查项：跨产物对账与失败关闭
+8. 跨产物对账与失败关闭
+分值：7分
 优先级：普通项
 所属层级：L9跨产物一致性与可追溯层
 标准答案：对象、规则、绑定和问题处置的摘要数量可从明细复算；输入结构错误时构建入口非零退出，不保留旧交付目录。

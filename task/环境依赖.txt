@@ -1,5 +1,7 @@
-在Windows11上使用主软件Kubernetes，kubectl.exe版本为1.32.6，Kustomize采用kubectl内置版本。辅助工具包括PowerShell7、Python3.12和UTF-8文本编辑器；PowerShell负责命令调用，Python用于读取CSV和YAML并导出静态记录。
+操作系统： Windows11。
 
-输入目录保持只读，结果写入单独目录。处理过程不读取kubeconfig，不连接Kubernetes API Server，也不执行apply。软件安装时可以联网，开始处理清单后不访问外部服务。kubectl与Kubernetes按ApacheLicense2.0使用。
+主软件为Kubernetes客户端kubectl.exe1.32.6，使用内置Kustomize完成本地清单构建。PowerShell7负责命令调用，Python3.12负责读取CSV和YAML并导出静态记录。
 
-开始前应确认kubectl kustomize能够工作，并为结果目录预留写入权限。业务风险主要来自把ClusterRole引用当成集群范围，或让租户账号留在ClusterRoleBinding中；聚合标签、通配符、secrets和写入动词也需要从最终渲染结果复查。
+安装工具时可以联网。操作者需要输入读取权限和独立结果目录写入权限。CPU和内存需满足本地构建及RBAC规则解析，GPU不参与；磁盘需容纳输入、渲染清单和评审记录。kubectl与Python入口设置有限超时，超时后停止当前交付。
+
+主要风险是把ClusterRole引用误当成集群范围，或让租户账号留在ClusterRoleBinding中。聚合标签、通配符、secrets和写入动词都要从最终渲染清单中复查；本地结果不能代替聚合控制器或API Server的实际授权状态。
