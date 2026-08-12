@@ -1,10 +1,10 @@
 检查项：交付目录与构建入口
 优先级：Gate项
 所属层级：L1任务指令遵循层
-标准答案：交付bundle目录、rendered/rbac-bundle.yaml、tools/build_delivery.py、results目录和HANDOVER.md，kubectl kustomize能够从bundle生成随附渲染结果。
+标准答案：交付bundle目录、rendered/rbac-bundle.yaml、tools/build_delivery.py、results目录和RELEASE-NOTES.md，kubectl kustomize能够从bundle生成随附渲染结果。
 关键字段：固定路径、kustomization.yaml中的resources、渲染对象文档。
 容差：YAML文档顺序可以变化，路径与对象集合无容差。
-失败边界：缺少清单、构建入口、渲染结果或交接说明；Kustomize构建失败。
+失败边界：缺少清单、构建入口、渲染结果或发布说明；Kustomize构建失败。
 客观硬性标准：答案清单中的交付物全部存在，kubectl kustomize退出码为0，渲染对象集合与Reference一致。
 阈值：固定路径缺一项或对象集合出现差异即失败。
 可观察证据：交付目录、kubectl退出码、kustomization.yaml、rbac-bundle.yaml和对象清单。
@@ -18,7 +18,7 @@
 失败边界：漏用任一业务材料、风险来源错误、现行问题仍出现在新清单。
 客观硬性标准：三类输入均有可追溯记录，两项现行风险在新渲染清单中均不可定位。
 阈值：输入追溯或风险处置任一缺失即失败。
-可观察证据：只读输入、risk-disposition.csv、rendered/rbac-bundle.yaml和HANDOVER.md。
+可观察证据：只读输入、risk-disposition.csv、rendered/rbac-bundle.yaml和RELEASE-NOTES.md。
 
 检查项：聚合角色与只读规则
 优先级：Gate项
@@ -67,13 +67,13 @@
 检查项：静态结论与现场职责
 优先级：高权重项
 所属层级：L9跨产物一致性与可追溯层
-标准答案：交接说明明确当前结论只来自本地渲染清单；现场管理员负责应用清单、等待聚合控制器完成并核查实际授权。
+标准答案：发布说明明确当前结论只来自本地渲染清单；现场管理员负责应用清单、等待聚合控制器完成并核查实际授权。
 关键字段：review_scope、apply_owner、post_apply_checks、status。
 容差：说明措辞可以变化，职责边界无容差。
 失败边界：声称kubectl kustomize已经证明聚合控制器或API Server授权结果，遗漏现场应用或应用后核查责任。
-客观硬性标准：handover.json与HANDOVER.md同时包含三项职责边界，且没有实际授权已生效的表述。
+客观硬性标准：release-summary.json与RELEASE-NOTES.md同时包含三项职责边界，且没有实际授权已生效的表述。
 阈值：三项边界必须全部出现，缺一项即失败。
-可观察证据：handover.json、HANDOVER.md和aggregation-review.json。
+可观察证据：release-summary.json、RELEASE-NOTES.md和aggregation-review.json。
 
 检查项：跨产物对账与失败关闭
 优先级：普通项
@@ -84,4 +84,4 @@
 失败边界：摘要与明细不一致、输入缺列仍生成结果、失败后留下半成品。
 客观硬性标准：所有摘要计数差值为0，状态为READY，负例退出码非0且输出目录不存在。
 阈值：任一计数差值不为0或负例未关闭即失败。
-可观察证据：handover.json、三张明细表、问题处置表和失败运行日志。
+可观察证据：release-summary.json、三张明细表、问题处置表和失败运行日志。

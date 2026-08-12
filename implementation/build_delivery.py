@@ -71,7 +71,7 @@ def validate_input(input_dir: Path) -> tuple[list[dict], list[dict], dict]:
         "forbid_wildcards",
         "tenant_binding_kind",
         "platform_binding_kind",
-        "required_handover_note",
+        "required_release_note",
     }
     if set(policy) != required_policy or policy["schema_version"] != 1:
         raise ValueError("review rules differ")
@@ -298,7 +298,7 @@ def main() -> int:
         (results / "aggregation-review.json").write_text(
             json.dumps(review, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
-        handover = {
+        release_summary = {
             "status": "READY",
             "review_scope": "LOCAL_RENDERED_MANIFEST_ONLY",
             "apply_owner": "现场管理员",
@@ -308,13 +308,13 @@ def main() -> int:
             "binding_count": len(bindings),
             "resolved_risk_count": len(dispositions),
         }
-        (results / "handover.json").write_text(
-            json.dumps(handover, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        (results / "release-summary.json").write_text(
+            json.dumps(release_summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
         (temp_dir / "tools").mkdir()
         shutil.copy2(Path(__file__), temp_dir / "tools/build_delivery.py")
-        (temp_dir / "HANDOVER.md").write_text(
-            "# 观测权限清单交接\n\n"
+        (temp_dir / "RELEASE-NOTES.md").write_text(
+            "# 租户观测权限发布说明\n\n"
             "本次结论只针对rendered/rbac-bundle.yaml中的本地清单，不代表集群授权已经生效。\n\n"
             "现场管理员负责在维护窗口应用bundle目录中的清单，等待聚合控制器完成，再核查实际授权。\n",
             encoding="utf-8",
