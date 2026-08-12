@@ -258,6 +258,7 @@ def main() -> int:
                     "subresource": row["subresource"],
                     "non_resource_url": row["non_resource_url"],
                     "verbs": sorted(row["verbs"].split("|")),
+                    "business_use": row["business_use"],
                 }
                 for row in needs
             ],

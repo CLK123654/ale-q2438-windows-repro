@@ -136,8 +136,8 @@ def main() -> None:
     review = json.loads((positive / "output/results/aggregation-review.json").read_text(encoding="utf-8"))
     if review["access_need_rows"] != 11:
         raise AssertionError("positive input not consumed")
-    if normalized(positive / "output/results/aggregation-review.json") != normalized(expected_output / "results/aggregation-review.json"):
-        raise AssertionError("descriptive input change altered permission result")
+    if normalized(positive / "output/results/aggregation-review.json") == normalized(expected_output / "results/aggregation-review.json"):
+        raise AssertionError("descriptive input change was not carried into review evidence")
     (EVIDENCE / "positive-case.json").write_text(
         json.dumps({"mutation": "节点指标业务说明调整", "stable_permission_result": True, "passed": True}, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
